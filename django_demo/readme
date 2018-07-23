@@ -1,0 +1,6 @@
+帮助：django-admin help <subcommand>
+新建项目：django-admin startproject name [directory]
+新建app：django-admin startapp name [directory]
+: python manage.py makemigrations [app] [app] [app]
+: python manage.py migrate [app] [app]
+django内置日志格式路径： site-packages/django/utils/log.py
