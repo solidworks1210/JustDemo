@@ -4,12 +4,12 @@
 # Description:  
 # --------------------
 
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
 
-# 默认情况下，路由只回应 GET 请求，但是通过 route() 装饰器传递 methods 参数可以改变这个行为。
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -27,11 +27,13 @@ def show_user_profile2(username):
     return 'User2: %s' % username
 
 
+# 默认情况下，路由只回应 GET 请求，但是通过 route() 装饰器传递 methods 参数可以改变这个行为。
 # @app.route('/post/<float:post_id>')
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def show_post(post_id):
-    # show the post with the given id, the id is an integer
-    return 'Post %d' % post_id
+    if request.method == 'POST':
+        # show the post with the given id, the id is an integer
+        return 'Post %d' % post_id
 
 
 if __name__ == '__main__':
