@@ -1,0 +1,86 @@
+{% extends _base.html %}
+
+{% block _css %}
+<!-- Custom styles for this template -->
+<link href="{{ static_url('css/style.css') }}" rel="stylesheet">
+<link href="{{ static_url('css/style-responsive.css') }}" rel="stylesheet" />
+{% end %}
+
+{% block _body %}
+<body class="login-body">
+<div class="container">
+  <form class="form-signin" action="index.html">
+    <h2 class="form-signin-heading">sign in now</h2>
+    <div class="login-wrap">
+        {% raw xsrf_form_html() %}
+        <input id="name" type="text" class="form-control" placeholder="User ID" autofocus>
+        <input id="pwd" type="password" class="form-control" placeholder="Password">
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+            <span class="pull-right">
+                <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+            </span>
+        </label>
+        <a id="loginBtn" class="btn btn-lg btn-login btn-block" type="submit" onclick="login()">Sign in</a>
+    </div>
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Forgot Password ?</h4>
+              </div>
+              <div class="modal-body">
+                  <p>Enter your e-mail address below to reset your password.</p>
+                  <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+              </div>
+              <div class="modal-footer">
+                  <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                  <button class="btn btn-success" type="button" >Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- modal -->
+  </form>
+</div>
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="{{ static_url('js/jquery.js') }}"></script>
+<script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+<script src="{{ static_url('common/js/utils.js') }}"></script>
+<script>
+    function login() {
+        var datas = {"name":$("#name").val(),"pwd":$("#pwd").val(), '_xsrf': getCookie('_xsrf')};
+        $.ajax({
+            type: 'post',
+            url: "/login",
+            data: datas,
+            dataType: 'json',
+            beforeSend: function (XMLHttpRequest) {
+                $("#loginBtn").html("登录中...");
+                $("#loginBtn").attr("disabled",true);
+            },
+            success: function(ret){
+                $("#loginBtn").attr("disabled",false);
+
+                if (ret['state']==1) {
+                    location.reload();
+                    toastr['success']("登录成功", "信息提示");
+                }else{
+                    $("#loginBtn").html("立即登录");
+                    toastr['error'](ret['msg'], "信息提示");
+                }
+            },
+            error: function(ret){
+
+                $("#loginBtn").attr("disabled",false);
+                $("#loginBtn").html("立即登录");
+                toastr['error']('登录发生异常', "信息提示");
+            }
+        });
+    }
+</script>
+</body>
+{% end %}
