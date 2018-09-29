@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="seo"/>
+    <meta name="author" content=""/>
+    <title>管理-西南交通大学数学学院在线学习平台</title>
+    <link rel="shortcut icon" href="/static/files/default/favicon.ico?v=40ce5f0d8b2460a5f3a0553ed1f12ceb">
+    <link rel="stylesheet" href="/static/manage/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="/static/manage/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/manage/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/manage/css/xenon-core.css">
+    <link rel="stylesheet" href="/static/manage/css/xenon-forms.css">
+    <link rel="stylesheet" href="/static/manage/css/xenon-components.css">
+    <link rel="stylesheet" href="/static/manage/css/xenon-skins.css">
+    <link rel="stylesheet" href="/static/manage/css/custom.css">
+    <script src="/static/manage/js/jquery-1.11.1.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- 引入 wangEditor 样式（共有）-->
+    <link rel="stylesheet" type="text/css" href="/static/manage/wangEditor/css/wangEditor.min.css">
+    <!-- 自定义分页插件样式（共有）-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .tcdPageCode {
+            padding: 15px 1px;
+            text-align: left;
+            color: #ccc;
+            text-align: left;
+        }
+
+        .tcdPageCode a {
+            display: inline-block;
+            color: #637492;
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            margin: 0 2px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .tcdPageCode a:hover {
+            text-decoration: none;
+            border: 1px solid #5f6f8c;
+        }
+
+        .tcdPageCode span.current {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            margin: 0 2px;
+            color: #fff;
+            background-color: #5f6f8d;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .tcdPageCode span.disabled {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            margin: 0 2px;
+            color: #bfbfbf;
+            background: #f2f2f2;
+            border: 1px solid #bfbfbf;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+    </style>
+    <!-- 子类自己的css-->
+
+    <!-- 子类自己的js-->
+
+</head>
+<body class="page-body">
+<!--显示图片模态框-->
+<div class="modal fade" id='modal_image_shower' tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 25px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        style="opacity: 0.5; float: right;">
+                    <span aria-hidden="true"><i class="fa fa-power-off"></i></span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 0px;">
+                <div class="body-img" style="width: 100%; height: 100%;">
+                    <!--图片预览-->
+                    <img id="view_image_modal" name='thumb' src="" alt="" width="100%" height="100%"
+                         style="border-radius: 4px; border: 1px solid #7b90b2; overflow: hidden;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--消息模态框-->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_alert_message" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=modal_alert_message_title">消息：</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modal_alert_message_message"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改管理员密码-->
+<div class="modal fade" id="modal_change_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="box-shadow:none;background-color: transparent;">
+    <div class="modal-dialog">
+        <form class="form-horizontal" role="form" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改密码</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input
+                                    id="name_to_change"
+                                    name="name_to_change"
+                                    value="admin"
+                                    readonly="readonly"
+                                    type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group" id="ps_old_div">
+                        <label class="col-sm-2 control-label">旧密码</label>
+                        <div class="col-sm-10">
+                            <input id="ps_old_to_change" name="ps_old_to_change" type="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">新密码</label>
+                        <div class="col-sm-10">
+                            <input id="ps_new_to_change" type="password" name="ps_new_to_change" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="margin-left: 10px;" data-dismiss="modal">关闭
+                    </button>
+                    <a class="btn btn-success" onclick="commitChange()"> 提交</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 页面内容区-->
+<div class="page-container">
+    <!-- 左侧主导航栏-->
+    <div class="sidebar-menu toggle-others fixed">
+        <div class="sidebar-menu-inner">
+            <!--<header class="logo-env">-->
+            <!--<h4 style="color:#d7d1d7;">西南交通大学数学学院在线学习平台网站内容管理</h4>-->
+            <!--</header>-->
+            <!-- 左侧导航栏 -->
+            <ul id="main-menu" class="main-menu">
+                <!-- 后台首页-->
+                <li id="manage">
+                    <a href="/manage">
+                        <i class="linecons-cog"></i>
+                        <span class="title">控制台</span>
+                    </a>
+                </li>
+                <!-- 首页管理 -->
+                <li id="nav1_home">
+                    <a href="#">
+                        <i class="linecons-desktop"></i>
+                        <span class="title">网站首页</span>
+                    </a>
+                    <ul>
+                        <!--首页 - 动态图片-->
+                        <li id="home-bar">
+                            <a href="/image-link/home-bar">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">动态图片</span>
+                            </a>
+                        </li>
+                        <!--首页 - 背景-->
+                        <li id="home-bj">
+                            <a href="/image-link/home-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--首页 - 新闻动态-->
+                        <li id="nav2_home_news">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">新闻动态</span>
+                            </a>
+                            <ul>
+                                <li id="home-news">
+                                    <a href="/c-fwb/home-news">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">新闻动态</span>
+                                    </a>
+                                </li>
+                                <li id="home-news-link">
+                                    <a href="/text-link/home-news-link">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">相关链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--首页 - 通知公告-->
+                        <li id="nav2_home_notice">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">通知公告</span>
+                            </a>
+                            <ul>
+                                <li id="home-notice">
+                                    <a href="/c-fwb/home-notice">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">通知公告</span>
+                                    </a>
+                                </li>
+                                <li id="home-notice-link">
+                                    <a href="/text-link/home-notice-link">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">相关链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--首页 - 精品推荐-->
+                        <li id="nav2_home_recommend">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">精品推荐</span>
+                            </a>
+                            <ul>
+                                <li id="home-recommend">
+                                    <a href="/c-fwb/home-recommend">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">精品推荐</span>
+                                    </a>
+                                </li>
+                                <li id="home-recommend-link">
+                                    <a href="/text-link/home-recommend-link">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">相关链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--首页 - 专题网站-->
+                        <li id="home-ztwz">
+                            <a href="/image-link/home-ztwz">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">专题网站</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 公共课程 -->
+                <li id="nav1_ggkc">
+                    <a href="#">
+                        <i class="linecons-inbox"></i>
+                        <span class="title">公共数学课程</span>
+                    </a>
+                    <ul>
+                        <!--公共课程 - 背景图-->
+                        <li id="ggkc-bj">
+                            <a href="/image-link/ggkc-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--公共数学课程 - 高等数学-->
+                        <li id="nav2_ggkc_gdsx">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">高等数学</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-gdsx-zxdg">
+                                    <a href="/c-fwb/ggkc-gdsx-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gdsx-ckzl">
+                                    <a href="/c-fwb/ggkc-gdsx-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gdsx-wkzy">
+                                    <a href="/c-fwb/ggkc-gdsx-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gdsx-jctj">
+                                    <a href="/c-fwb/ggkc-gdsx-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gdsx-jxgg">
+                                    <a href="/c-fwb/ggkc-gdsx-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gdsx-tjlj">
+                                    <a href="/image-link/ggkc-gdsx-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 线性代数-->
+                        <li id="nav2_ggkc_xxds">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">线性代数</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-xxds-zxdg">
+                                    <a href="/c-fwb/ggkc-xxds-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-xxds-ckzl">
+                                    <a href="/c-fwb/ggkc-xxds-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-xxds-wkzy">
+                                    <a href="/c-fwb/ggkc-xxds-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-xxds-jctj">
+                                    <a href="/c-fwb/ggkc-xxds-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-xxds-jxgg">
+                                    <a href="/c-fwb/ggkc-xxds-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-xxds-tjlj">
+                                    <a href="/image-link/ggkc-xxds-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 复变函数-->
+                        <li id="nav2_ggkc_fbhs">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">复变核函数</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-fbhs-zxdg">
+                                    <a href="/c-fwb/ggkc-fbhs-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-fbhs-ckzl">
+                                    <a href="/c-fwb/ggkc-fbhs-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-fbhs-wkzy">
+                                    <a href="/c-fwb/ggkc-fbhs-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-fbhs-jctj">
+                                    <a href="/c-fwb/ggkc-fbhs-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-fbhs-jxgg">
+                                    <a href="/c-fwb/ggkc-fbhs-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-fbhs-tjlj">
+                                    <a href="/image-link/ggkc-fbhs-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 概率论与数理统计-->
+                        <li id="nav2_ggkc_gll-sltj">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">概率论与数理统计</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-gll-sltj-zxdg">
+                                    <a href="/c-fwb/ggkc-gll-sltj-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gll-sltj-ckzl">
+                                    <a href="/c-fwb/ggkc-gll-sltj-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gll-sltj-wkzy">
+                                    <a href="/c-fwb/ggkc-gll-sltj-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gll-sltj-jctj">
+                                    <a href="/c-fwb/ggkc-gll-sltj-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gll-sltj-jxgg">
+                                    <a href="/c-fwb/ggkc-gll-sltj-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-gll-sltj-tjlj">
+                                    <a href="/image-link/ggkc-gll-sltj-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 数学建模-->
+                        <li id="nav2_ggkc_sxjm">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">数学建模</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-sxjm-zxdg">
+                                    <a href="/c-fwb/ggkc-sxjm-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxjm-ckzl">
+                                    <a href="/c-fwb/ggkc-sxjm-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxjm-wkzy">
+                                    <a href="/c-fwb/ggkc-sxjm-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxjm-jctj">
+                                    <a href="/c-fwb/ggkc-sxjm-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxjm-jxgg">
+                                    <a href="/c-fwb/ggkc-sxjm-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxjm-tjlj">
+                                    <a href="/image-link/ggkc-sxjm-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 数学实验-->
+                        <li id="nav2_ggkc_sxsy">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">数学实验</span>
+                            </a>
+                            <ul>
+                                <li id="ggkc-sxsy-zxdg">
+                                    <a href="/c-fwb/ggkc-sxsy-zxdg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">执行大纲</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxsy-ckzl">
+                                    <a href="/c-fwb/ggkc-sxsy-ckzl">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">参考资料</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxsy-wkzy">
+                                    <a href="/c-fwb/ggkc-sxsy-wkzy">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">微课资源</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxsy-jctj">
+                                    <a href="/c-fwb/ggkc-sxsy-jctj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教材推荐</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxsy-jxgg">
+                                    <a href="/c-fwb/ggkc-sxsy-jxgg">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">教学改革</span>
+                                    </a>
+                                </li>
+                                <li id="ggkc-sxsy-tjlj">
+                                    <a href="/image-link/ggkc-sxsy-tjlj">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">推荐链接</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--公共数学课程 - 相关链接-->
+                        <li id="ggkc-link">
+                            <a href="/text-link/ggkc-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 数学建模 -->
+                <li id="nav1_sxjm">
+                    <a href="#">
+                        <i class="linecons-note"></i>
+                        <span class="title">数学建模</span>
+                    </a>
+                    <ul>
+                        <!-- 背景 -->
+                        <li id="sxjm-bj">
+                            <a href="/image-link/sxjm-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 建模简介-->
+                        <li id="sxjm-jmjj">
+                            <a href="/s-fwb/sxjm-jmjj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">建模简介</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 成绩展示-->
+                        <li id="sxjm-cjzs">
+                            <a href="/s-fwb/sxjm-cjzs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">成绩展示</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 团队建设-->
+                        <li id="sxjm-tdjs">
+                            <a href="/s-fwb/sxjm-tdjs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">团队建设</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 共享资源-->
+                        <li id="sxjm-gxzy">
+                            <a href="/c-fwb/sxjm-gxzy">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">共享资源</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 社团活动-->
+                        <li id="sxjm-sthd">
+                            <a href="/c-fwb/sxjm-sthd">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">社团活动</span>
+                            </a>
+                        </li>
+                        <!--数学建模 - 相关链接-->
+                        <li id="sxjm-link">
+                            <a href="/text-link/sxjm-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 数学竞赛 -->
+                <li id="nav1_sxjs">
+                    <a href="">
+                        <i class="linecons-thumbs-up"></i>
+                        <span class="title">数学竞赛</span>
+                    </a>
+                    <ul>
+                        <!-- 背景 -->
+                        <li id="sxjs-bj">
+                            <a href="/image-link/sxjs-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 竞赛简介-->
+                        <li id="sxjs-jsjj">
+                            <a href="/s-fwb/sxjs-jsjj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">竞赛简介</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 成绩展示-->
+                        <li id="sxjs-cjzs">
+                            <a href="/s-fwb/sxjs-cjzs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">成绩展示</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 团队建设-->
+                        <li id="sxjs-tdjs">
+                            <a href="/s-fwb/sxjs-tdjs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">团队建设</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 共享资源-->
+                        <li id="sxjs-gxzy">
+                            <a href="/c-fwb/sxjs-gxzy">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">共享资源</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 社团活动-->
+                        <li id="sxjs-sthd">
+                            <a href="/c-fwb/sxjs-sthd">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">社团活动</span>
+                            </a>
+                        </li>
+                        <!--数学竞赛 - 相关链接-->
+                        <li id="sxjs-link">
+                            <a href="/text-link/sxjs-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 数学学习中心 -->
+                <li id="nav1_xxzx">
+                    <a>
+                        <i class="linecons-heart"></i>
+                        <span class="title">数学学习中心</span>
+                    </a>
+                    <ul>
+                        <!--数学学习中心 - 动态图片-->
+                        <li id="xxzx-bar">
+                            <a href="/image-link/xxzx-bar">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">动态图片</span>
+                            </a>
+                        </li>
+                        <!--数学学习中心 - 背景图-->
+                        <li id="xxzx-bj">
+                            <a href="/image-link/xxzx-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--数学学习中心 - 考研辅助计划-->
+                        <li id="nav2_xxzx_kyfzjh">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">考研辅助计划</span>
+                            </a>
+                            <ul>
+                                <li id="xxzx-kyfzjh-ms">
+                                    <a href="/text-area/xxzx-kyfzjh-ms">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">工作描述</span>
+                                    </a>
+                                </li>
+                                <li id="xxzx-kyfzjh">
+                                    <a href="/c-fwb/xxzx-kyfzjh">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">考研辅助计划</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--数学学习中心 - 补差计划-->
+                        <li id="nav2_xxzx_bcjh">
+                            <a href=>
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">补差计划</span>
+                            </a>
+                            <ul>
+                                <li id="xxzx-bcjh-ms">
+                                    <a href="/text-area/xxzx-bcjh-ms">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">工作描述</span>
+                                    </a>
+                                </li>
+                                <li id="xxzx-bcjh">
+                                    <a href="/c-fwb/xxzx-bcjh">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">补差计划</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--数学学习中心 - 培优计划-->
+                        <li id="nav2_xxzx_pyjh">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">培优计划</span>
+                            </a>
+                            <ul>
+                                <li id="xxzx-pyjh-ms">
+                                    <a href="/text-area/xxzx-pyjh-ms">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">工作描述</span>
+                                    </a>
+                                </li>
+                                <li id="xxzx-pyjh">
+                                    <a href="/c-fwb/xxzx-pyjh">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">培优计划</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--数学学习中心 - 氛围营造计划-->
+                        <li id="nav2_xxzx_fwyzjh">
+                            <a href="#">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">氛围营造计划</span>
+                            </a>
+                            <ul>
+                                <li id="xxzx-fwyzjh-ms">
+                                    <a href="/text-area/xxzx-fwyzjh-ms">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">工作描述</span>
+                                    </a>
+                                </li>
+                                <li id="xxzx-fwyzjh">
+                                    <a href="/c-fwb/xxzx-fwyzjh">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">氛围营造计划</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--数学学习中心 - 相关链接-->
+                        <li id="xxzx-link">
+                            <a href="/text-link/xxzx-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- maple ta-->
+                <li id="maple">
+                    <a href="/text-input/maple">
+                        <i class="linecons-paper-plane"></i>
+                        <span class="title">Maple TA 在线测试</span>
+                    </a>
+                </li>
+                <!-- sas -->
+                <li id="nav1_sas">
+                    <a>
+                        <i class="linecons-database"></i>
+                        <span class="title">SAS 数据分析</span>
+                    </a>
+                    <ul>
+                        <!-- 背景 -->
+                        <li id="sas-bj">
+                            <a href="/image-link/sas-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--SAS - SAS简介-->
+                        <li id="sas-jj">
+                            <a href="/s-fwb/sas-jj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">SAS简介</span>
+                            </a>
+                        </li>
+                        <!--SAS - 成绩展示-->
+                        <li id="sas-cjzs">
+                            <a href="/s-fwb/sas-cjzs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">成绩展示</span>
+                            </a>
+                        </li>
+                        <!--SAS - 团队建设-->
+                        <li id="sas-tdjs">
+                            <a href="/s-fwb/sas-tdjs">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">团队建设</span>
+                            </a>
+                        </li>
+                        <!--SAS - 共享资源-->
+                        <li id="sas-gxzy">
+                            <a href="/c-fwb/sas-gxzy">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">共享资源</span>
+                            </a>
+                        </li>
+                        <!--SAS - 社团活动-->
+                        <li id="sas-sthd">
+                            <a href="/c-fwb/sas-sthd">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">社团活动</span>
+                            </a>
+                        </li>
+                        <!--SAS - 相关链接-->
+                        <li id="sas-link">
+                            <a href="/text-link/sas-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 联系我们-->
+                <li id="nav1_lxwm">
+                    <a>
+                        <i class="linecons-tag"></i>
+                        <span class="title">联系我们</span>
+                    </a>
+                    <ul>
+                        <!-- 背景 -->
+                        <li id="lxwm-bj">
+                            <a href="/image-link/lxwm-bj">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">背景图片</span>
+                            </a>
+                        </li>
+                        <!--联系我们 - 联系我们-->
+                        <li id="lxwm">
+                            <a href="/s-fwb/lxwm">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">内容编辑</span>
+                            </a>
+                        </li>
+                        <!--联系我们 - 相关链接-->
+                        <li id="lxwm-link">
+                            <a href="/text-link/lxwm-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">相关链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 公用信息 -->
+                <li id="nav1_basic_info">
+                    <a>
+                        <i class="linecons-globe"></i>
+                        <span class="title">公用信息</span>
+                    </a>
+                    <ul>
+                        <!--基本信息-->
+                        <li id="basic-info">
+                            <a href="/basic-info">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">基本信息</span>
+                            </a>
+                        </li>
+                        <!--顶部链接-->
+                        <li id="basic-info-link">
+                            <a href="/text-link/basic-info-link">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">顶部链接</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右侧内容区-->
+    <div class="main-content">
+        <!--导航栏-->
+        <nav class="navbar user-info-navbar">
+            <ul class="user-info-menu left-links list-inline list-unstyled">
+                <li class="hidden-sm hidden-xs">
+                    <a href="#" data-toggle="sidebar">
+                        <i class="fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="user-info-menu right-links list-inline list-unstyled">
+                <li class="dropdown user-profile">
+                    <a href="#" data-toggle="dropdown">
+                        <img src="/static/manage/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28"/>
+                        <span>admin<i class="fa-angle-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu user-profile-menu list-unstyled">
+                        <li>
+                            <a onclick="changePassword()">
+                                <i class="fa-wrench"></i>
+                                修改密码
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/manage/logout">
+                                <i class="fa-lock"></i>
+                                退出系统
+                            </a>
+                        </li>
+                        <!--<a onclick="changePassword()">修改密码</a>-->
+                        <!--<a href="/manage/logout">退出系统</a>-->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!--页面标题-->
+
+        <!--右侧内容区域-->
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="chart-item-bg-2">
+                    <h1 align="center">西南交通大学数学学院在线学习平台-网站内容管理系统</h1>
+                </div>
+            </div>
+
+        </div>
+        <!-- footer -->
+        <footer class="main-footer sticky footer-type-1">
+            <div class="footer-inner">
+                <!-- Add your copyright text here -->
+                <div class="footer-text">
+                    <p>版权所有@西南交通大学犀浦校区</p>
+                    <p>
+                        <a href="http://www.miitbeian.gov.cn" target="_blank" title="icp">备案信息</a>
+                    </p>
+                </div>
+                <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                <div class="go-up">
+                    <a href="#" rel="go-top">
+                        <i class="fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- Bottom Scripts -->
+<script src="/static/manage/js/bootstrap.min.js"></script>
+<script src="/static/manage/js/TweenMax.min.js"></script>
+<script src="/static/manage/js/resizeable.js"></script>
+<script src="/static/manage/js/joinable.js"></script>
+<script src="/static/manage/js/xenon-api.js"></script>
+<script src="/static/manage/js/xenon-toggles.js"></script>
+<!-- JavaScripts initializations and stuff -->
+<script src="/static/manage/js/xenon-custom.js"></script>
+<!-- 引用 wangEditor 插件-->
+<script src="/static/manage/wangEditor/js/wangEditor.min.js"></script>
+<!--引用分页栏插件(使用了jquery，记得同时引用)-->
+<script src="/static/common/js/jquery.page.js"></script>
+<script src="/static/common/js/utils.js"></script>
+<!--zidingyi-->
+<script>
+    $(function () {
+        $("#nav1_manage").addClass('active');
+        $("#nav1_manage").addClass('opened');
+        $("#nav1_manage").addClass('active');
+        $("#nav1_manage").addClass('opened');
+        $("#manage").addClass('active');
+    });
+
+    // 显示图片预览
+    function showImage(image_path) {
+// image_path: 图片路径
+        $('#modal_image_shower #view_image_modal').attr('src', ''); // 清除
+        $('#modal_image_shower #view_image_modal').attr('src', image_path); // 加载
+        $('#modal_image_shower').modal('show'); // 显示预览
+    }
+
+    function showAlert(title, message) {
+        $("#modal_alert_message_title").html(title);
+        $('#modal_alert_message_message').html(message);
+        $('#modal_alert_message').modal('show');
+    }
+
+    // 修改密码
+    function changePassword() {
+        $("#modal_change_password").modal('show');
+    }
+
+    // 提交密码修改
+    function commitChange() {
+        var data_to_change = {
+            'name': $("#name_to_change").val(),
+            'ps_new': $("#ps_new_to_change").val(),
+            'ps_old': $("#ps_old_to_change").val(),
+            '_xsrf': getCookie('_xsrf')
+        };
+        if (!verify_ps(data_to_change['ps_new']) || !verify_ps(data_to_change['ps_old'])) {
+            alert('密码输入有误！');
+            return false
+        }
+        console.log(data_to_change);
+        $.ajax({
+            type: 'post',
+            url: "/manage/user",
+            data: data_to_change,
+            success: function (data) {
+                if (data['status'] === 1) {
+                    $("#modal_change_password").modal('hide');
+                    document.location.href = '/manage/logout';
+                } else {
+                    $("#modal_change_password").modal('hide');
+                    showAlert('信息', '修改失败')
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+localhost.local	FALSE	/	FALSE		_xsrf	2|640c4a84|03c03da45bba05ca62650f416099f1c6|1514450745
