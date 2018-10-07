@@ -13,7 +13,7 @@ from PIL import Image
 from tornado.log import app_log
 
 from config import path
-from module.manage.model.BaseModel import BaseModel
+from module.generation.model.base_model import BaseModel
 from utils import ImageUtils, PathUtils, TimeUtils, StringUtils
 
 

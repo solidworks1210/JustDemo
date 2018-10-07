@@ -1,0 +1,85 @@
+<!--分页插件样式-->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .tcdPageCode {
+        padding: 15px 20px;
+        text-align: left;
+        color: #ccc;
+        text-align: center;
+    }
+
+    .tcdPageCode a {
+        display: inline-block;
+        color: #428bca;
+        display: inline-block;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 10px;
+        border: 1px solid #ddd;
+        margin: 0 2px;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .tcdPageCode a:hover {
+        text-decoration: none;
+        border: 1px solid #428bca;
+    }
+
+    .tcdPageCode span.current {
+        display: inline-block;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 10px;
+        margin: 0 2px;
+        color: #fff;
+        background-color: #428bca;
+        border: 1px solid #428bca;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .tcdPageCode span.disabled {
+        display: inline-block;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 10px;
+        margin: 0 2px;
+        color: #bfbfbf;
+        background: #f2f2f2;
+        border: 1px solid #bfbfbf;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+</style>
+
+<!--分页栏插件(使用了jquery，记得同时引用)-->
+<script src="/static/common/js/jquery.page.js"></script>
+
+
+页面中使用处：<div class="tcdPageCode"></div>
+
+<!--使用分页插件-->
+<script>
+    $(".tcdPageCode").createPage({
+        pageCount: 5,   // 总页数
+        current: 3, // 当前页数
+        backFn: function (p) {
+        // p 是点击的哪一页，点击时出发该函数
+            //window.location.href='/manage/news?page=' + p;
+        }
+    });
+</script>

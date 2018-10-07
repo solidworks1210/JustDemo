@@ -1,0 +1,294 @@
+{% extends base.html %}
+
+
+{% block modal %}
+    <!--添加模态框-->
+    <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="box-shadow:none;background-color: transparent;">
+        <div class="modal-dialog">
+            <form  class="form-horizontal" role="form" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">添加员工</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                              <input id="add_name" type="text" class="form-control" name="add_name">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                              <input id="add_ps" type="password" name="add_ps" class="form-control">
+                            </div>
+                         </div>
+
+                        <!--超级管理员显示-->
+                         <div class="form-group"
+                              {% if role_admin != '0' %}
+                                hidden
+                            {% end %}
+                         >
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <div class="checkbox">
+                                <label><input type="checkbox"  id="add_checkbox" class="add_checkbox">管理员</label>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="margin-left:  10px;" data-dismiss="modal">关闭 </button>
+                        <a class="btn btn-success" onclick="add()"> 添加员工</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--修改模态框-->
+    <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false" style="box-shadow:none;background-color: transparent;">
+        <div class="modal-dialog">
+            <form  class="form-horizontal" role="form" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal_edit_label">修改员工信息</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden" id="modal-user">
+                        <input type="hidden" id="role_user_edit">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                              <input id="name_edit" type="text" class="form-control" name="name_edit" readonly="true">
+                            </div>
+                        </div>
+                         <div class="form-group"{% if role_admin == '0' %} hidden {% end %}>
+                            <label class="col-sm-2 control-label">旧密码</label>
+                            <div class="col-sm-10">
+                              <input id="ps_old_edit" type="password" name="ps_old_edit" class="form-control">
+                            </div>
+                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                {% if role_admin == '0' %}
+                                    改密码
+                                {% else %}
+                                    新密码
+                                {% end %}
+                            </label>
+                            <div class="col-sm-10">
+                              <input id="ps_new_edit" type="password" name="ps_new_edit" class="form-control">
+                            </div>
+                         </div>
+                        <div class="form-group" id="checkbox_edit_div">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" id="checkbox_edit" class="add_checkbox">管理员</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="margin-left:  10px;"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <a class="btn btn-success" onclick="submit_modify()"> 提交</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% end %}
+
+
+{% block navi %}
+    <h1 class="page-title">{{ title_content }}</h1>
+    <ul class="breadcrumb">
+        <li><a>{{ title_content }}</a></li>
+        <li class="active"><a></a></li>
+    </ul>
+{% end %}
+
+{% block content %}
+    <!--顶部按钮-->
+    <div class="btn-toolbar list-toolbar">
+        <a class="btn btn-primary" href="#modal_add" data-toggle="modal"><i class="fa fa-plus"></i> 添加用户</a>
+    </div>
+    <!--表格-->
+    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+       aria-describedby="dataTables-example_info">
+        <!--台头-->
+        <thead>
+        <tr>
+            <th></th>
+            <th>账户</th>
+            <th>类型</th>
+            <th>操作</th>
+            <!--<th style="width: 3.5em;"></th>-->
+        </tr>
+        </thead>
+        <!--每行值-->
+        <tbody>
+        {% for item in items %}
+        <tr  class="gradeA odd">
+            <!--0-->
+            <td>{{ items.index(item)+1 }}</td>
+            <!--1-->
+            <td>{{ item['name'] }}</td>
+            <!--账户类型 2-->
+            {% if item['role'] == '1' %}
+            <td sdn="admin">管理员</td>
+            {% elif item['role'] == '2' %}
+            <td sdn="staff">员工</td>
+            {% elif item['role'] == '0' %}
+            <td sdn="super">超级管理员</td>
+            {% end %}
+            <!--3-->
+            <td class="hidden">{{ item['role'] }}</td>
+            <td>
+                <a href="#" style="margin-right:8px" class="a_edit"><i class="fa fa-pencil">编辑</i></a>
+                {% if (role_admin == '0' and item['role'] != '0') or (role_admin == '1' and item['role'] == '2')  %}
+                    <a href="#" onclick="execute('{{ item['name'] }}')"><i class="fa fa-trash-o">删除</i></a>
+                {% end %}
+            </td>
+        </tr>
+        {% end %}
+        </tbody>
+    </table>
+    {% if page_total > 1 %}
+    <!--分页栏-->
+    <div class="tcdPageCode"></div>
+    {% end %}
+{% end %}
+
+{% block js %}
+<!--使用分页插件-->
+<script>
+    $(".tcdPageCode").createPage({
+        pageCount: '{{ page_total }}',   // 总页数
+        current: '{{ page_current }}', // 当前页数
+        backFn: function (p) {
+        // p 是点击的哪一页，点击时出发该函数
+            window.location.href='/user?page_current=' + p;
+        }
+    });
+</script>
+<!--添加-->
+<script>
+    function add() {
+        var data_add = {
+            'name_add':($("#add_name").val()).trim(),
+            'ps_add':($("#add_ps").val()).trim(),
+            '_xsrf': getCookie("_xsrf")
+
+        };
+        if (!verify_name(data_add['name_add'])){
+             alert('用户名格式误！');
+            return false
+        }
+        if (!verify_ps(data_add['ps_add'])){
+             alert('密码输入有误！');
+            return false
+        }
+        if ($('#add_checkbox').is(':checked')) {
+            data_add['role_add'] = 'admin';
+        } else {
+            data_add['role_add'] = 'staff';
+        }
+        console.log(data_add)
+
+        $.ajax({
+            type: 'post',
+            url: '/user',
+            data: data_add,
+            success: function (data) {
+                if (data != 'false') {
+                     window.location.href='/user?page_current=' + data;
+                } else {
+                    alert('操作失败');
+                }
+            }
+        });
+    }
+</script>
+<!--删除-->
+<script>
+    function execute(name) {
+        if (true) {
+            $.ajax({
+                type: 'delete',
+                url: '/user',
+                data: {'name_del': name, 'page_current':'{{ page_current }}', '_xsrf': getCookie("_xsrf")},
+                success: function (data) {
+                    if (data == 'false'){
+                        showAlert('信息', '删除失败');
+                    }else{
+                        window.location.href='/user?page_current=' + data;
+                    }
+                }
+            });
+        }
+    }
+</script>
+<!--修改-->
+<script>
+    // 打开编辑模态框
+    $('a.a_edit').click(function () {
+        $('#checkbox_edit_div').removeAttr('hidden');
+        //根据选择条目，初始化模态框中的内容
+        var td = $(this).parents('tr').find('td');
+        // 用户角色
+        $('#role_user_edit').val(td.eq(2).attr('sdn'));
+        // 用户名
+        $('#name_edit').val(td.eq(1).text());
+        // 旧密码
+        $('#ps_old_edit').val('');
+        // 新密码
+        $('#ps_new_edit').val('');
+        // 管理员
+        var temp = td.eq(2).attr('sdn');
+        if (temp == 'admin'){
+            $('#checkbox_edit').prop("checked",true)
+        }else if(temp == 'super'){
+             $('#checkbox_edit_div').attr('hidden','hidden')
+        }else{
+            $('#checkbox_edit').prop("checked", false)
+        }
+        {% if role_admin != '0' %}
+            $('#checkbox_edit_div').attr('hidden','hidden');
+        {% end %}
+
+        $('#modal_edit').modal('show');
+    });
+    // 提交编辑
+    function submit_modify(){
+        var data = {
+            '_xsrf': getCookie('_xsrf'),
+            'name_edit': ($('#name_edit').val()).trim(),
+            'ps_new': ($('#ps_new_edit').val()).trim(),
+            'ps_old':($('#ps_old_edit').val()).trim(),
+            'role_user_old': ($('#role_user_edit').val()).trim()
+        };
+        if ($('#checkbox_edit').is(':checked')) {
+            data['role_user_new'] = 'admin';
+        } else {
+            data['role_user_new'] = 'staff';
+        }
+        console.log(data);
+        // 提交请求
+        $.ajax({
+            type: 'put',
+            url: '/user',
+            data: data,
+            success: function(result){
+                if (result != 'false') {
+                    $('#modal_edit').modal('hide');
+                    window.location.href = '/user?page_current=' + result;
+                } else {
+                    alert('修改失败');
+                }
+            }
+        });
+    }
+</script>
+{% end %}

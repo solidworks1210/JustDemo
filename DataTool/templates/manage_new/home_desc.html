@@ -1,0 +1,111 @@
+{% extends base.html %}
+
+{% block css %}
+
+{% end %}
+
+{% block navi %}
+    <h1 class="page-title">{{ title_content }}</h1>
+    <ul class="breadcrumb">
+        <li><a>{{ title_page }}</a></li>
+        <li><a>{{ title_content }}</a></li>
+    </ul>
+{% end %}
+
+{% block content %}
+    <!--顶部按钮-->
+    <div class="btn-toolbar list-toolbar">
+        <a class="btn btn-primary" onclick="save('{{ id }}')"><i class="fa fa-save"></i> 保存</a>
+        <a class="btn btn-primary" onclick="discard('{{ id }}')"><i class="fa fa-trash-o"></i> 放弃</a>
+        <a class="btn btn-primary" href="/" target="_blank"><i class="fa fa-eye"></i> 预览</a>
+    </div>
+
+    <!-- wangEditor -->
+    <div id="wang" style="height:800px;">
+        {% raw content %}
+    </div>
+{% end %}
+
+{% block js %}
+<!--使用 wangEditor-->
+<script type="text/javascript">
+    $(function () {
+        var editor = new wangEditor('wang');
+        editor.config.uploadImgUrl = '/manage/file/image';      // 就收handler
+        editor.config.uploadImgFileName = 'photo';  // 上传文件的名字， self.request.file('photo')
+        editor.config.uploadParams={_xsrf:getCookie('_xsrf'),id_user:{{ id }}, category: '' };
+        editor.config.hideLinkImg = false;   // 使用网络图片
+        editor.config.menus = [
+        'source',
+        '|',
+        'bold',
+        'underline',
+        'italic',
+        'strikethrough',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        '|',
+        'fontfamily',
+        'fontsize',
+        'head',
+        'unorderlist',
+        'orderlist',
+        'alignleft',
+        'aligncenter',
+        'alignright',
+        '|',
+        'link',
+        'unlink',
+        'table',
+        '|',
+        'undo',
+        'redo',
+        'fullscreen'
+     ];
+        editor.create();
+    });
+</script>
+<!--保存-->
+<script>
+    function save(id){
+        if($('#wang').length != 1){
+            alert('找不着元素');
+            return false
+        }
+        var content = ($('#wang').html()).trim();
+        if(content.length<1){
+            alert('未输入内容');
+            return false
+        }
+        $.ajax({
+            type: 'post',
+            url: "/manage-home/{{ role_page }}",
+            data: {'content': content, 'id': id , '_xsrf': getCookie('_xsrf')},
+            success: function (result) {
+                if(result != 'false'){
+                    showAlert('消息', '保存成功');
+                }else{
+                    showAlert('错误', '保存失败');
+                }
+            }
+        });
+    }
+</script>
+<!--放弃-->
+<script>
+    function discard(id) {
+        $.ajax({
+                type: 'get',
+                url: '/manage-home/description?id_discard='+id,
+                success: function (data) {
+                    if (data == 'false'){
+                        alert('放弃失败');
+                    }else{
+                        window.location.href='/manage-home/description';
+                    }
+                }
+            });
+    }
+</script>
+{% end %}

@@ -1,0 +1,456 @@
+{% extends base.html %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/data_tool/jedate/skin/jedate.css">
+{% end %}
+
+{% block modal %}
+<!--添加附件-->
+<div class="modal fade" id="modal_attachment_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="box-shadow:none;background-color: transparent;">
+    <div class="modal-dialog">
+        <form class="form-horizontal" role="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">添加附件</h4>
+                </div>
+                <div class="modal-body" id="modal-user">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">文件</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="file_upload" name="file_upload" class="form-control" onChange="add_file()" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">标题</label>
+                        <div class="col-sm-10">
+                            <input id="title_attachment" name="title_attachment" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="margin-left:  10px;" data-dismiss="modal">关闭</button>
+                    <a class="btn btn-success" onclick="uploadFile()"> 确认</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% end %}
+
+{% block navi %}
+    <h1 class="page-title">{{ title_content }}</h1>
+    <ul class="breadcrumb">
+        <li><a>{{ title_navi1 }}</a></li>
+        <li><a>{{ title_navi2 }}</a></li>
+    </ul>
+{% end %}
+
+{% block content %}
+<style>
+    form>.item{
+        display: inline-block;
+        padding: 5px;
+    }
+    form>.item a{
+        max-width: 80px;
+        overflow: hidden;
+        float: left;
+    }
+    form>.item span{
+        padding: 0px 5px;
+        float: left;
+        float: left;
+    }
+</style>
+
+<a id="submit" class="btn btn-success "><i class="fa fa-save"></i> 保存</a>
+<a href="#" class="btn btn-primary" onclick="discard('{{ item['id'] }}')"><i class="fa fa-trash-o"></i> 放弃</a>
+<a href="#" class="btn btn-primary" onclick="attachmentAdd('{{ item['id'] }}')"><i class="fa fa-plus"></i> 添加附件</a>
+<br/>
+<br/>
+<form>
+    {% raw xsrf_form_html() %}
+    <input id="id" name="id" value="{{ item['id'] }}" type="hidden">
+    <!--标题-->
+    <div class="form-group">
+        <label>标题：</label>
+        <div>
+            <input id='title' type="text" class="form-control" style="display: inline-block;width: 50%;" name="title"
+               {% if len(item) > 1 %}
+                    value="{{ item['title'] }}"
+                {% else %}
+                    value=""
+                {% end %}
+            >
+        </div>
+    </div>
+    <!--摘要-->
+    <div class="form-group">
+        <label>摘要：</label>
+        <div>
+            <input id='summary' type="text" class="form-control" style="display: inline-block;width: 50%;" name="summary"
+                   {% if len(item) > 1 %}
+                    value="{{ item['summary'] }}"
+                    {% else %}
+                        value=""
+                    {% end %}
+            >
+        </div>
+
+    </div>
+    <!--创建时间-->
+    <div class="form-group">
+        <label>自定义时间：</label>
+        <div>
+            <input id='customer_time' type="text" class="form-control" style="display: inline-block;width: 50%;" readonly="true" name="summary"
+            {% if len(item) > 1 %}
+                value="{{ item['m_modified'] }}"
+            {% else %}
+                value=""
+            {% end %}
+            >
+        </div>
+
+    </div>
+    <!--附件-->
+    {% if len(item) > 1 %}
+        {% for key, value in item['attachments'].iteritems() %}
+        <div class="item"><a href="{{ static_url(key) }}" target="_blank">{{ value }}</a> <span onclick="delet(this,'{{ key }}' + '>' + '{{ value }}')">删除</span></div>
+        {% end %}
+    {% end %}
+    <!--进度条-->
+    <div class="form-group">
+        <div class="row" id="file_tems">
+        </div>
+    </div>
+    <!--内容-->
+    <div class="form-group">
+        <label>内容：</label>
+        <!-- 加载编辑器的容器 -->
+        <div id="wangeditor" style="height:400px;max-height:800px;">
+            {% if len(item) > 1 %}
+                {% raw item['content'] %}
+            {% end %}
+        </div>
+    </div>
+</form>
+<div id="file_tem" class="hidden">
+    <div class="col-sm-12">
+        <div class="speed">
+            <div class="pull-left">
+                <span class="file"></span>
+            </div>
+            <div class="progress pull-left bar">
+                <progress class="progressCounter" value="0" max="100" style="margin:0px;"></progress>
+            </div>
+
+            <div class="pull-left">
+                <span>100</span>kb/s <span>00:00:20</span>
+            </div>
+            <div class="pull-left">
+                <span class="endContent"></span>
+                <a class="delete_upload" onclick="delete_file()"><i class="fa fa-trash-o"></i>删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% end %}
+
+
+{% block js %}
+<script src="/static/data_tool/jedate/jquery.jedate.js"></script>
+<!--富文本-->
+<script>
+    var params = {
+        '_xsrf': getCookie('_xsrf'),
+        'id_user': "{{ item['id'] }}",
+        'category': '{{ category }}'
+    };
+    var editor = new wangEditor('wangeditor');
+    editor.config.uploadImgUrl = '/manage/file/image';
+    editor.config.uploadImgFileName = 'photo';
+    editor.config.uploadParams=params;
+    // 隐藏网络图片
+    editor.config.hideLinkImg = true;
+    editor.create();
+</script>
+<!--附件-->
+<script>
+    {% if len(item) > 1 %}
+        var attachment_list = {% raw item['attachment_list'] %};
+        console.log(attachment_list)
+    {% else %}
+        var attachment_list = [];
+    {% end %}
+
+    // 显示文件选择模态框
+    function attachmentAdd(){
+        $("#modal_attachment_add").modal('show');
+    }
+    // 设置 ajax
+    $.ajaxSetup({
+        beforeSend: function (jqXHR, settings) {
+            type = settings.type;
+            if (type != 'GET' && type != 'HEAD' && type != 'OPTIONS') {
+                var pattern = /(.+; *)?_xsrf *= *([^;" ]+)/;
+                var xsrf = pattern.exec(document.cookie);
+                var _xsrf = xsrf[2];
+                if (xsrf) {
+                    jqXHR.setRequestHeader("X-CSRFToken", _xsrf);  //现在对了？
+                    //从 cookie 中获取 _xsrf 字段，然后在 AJAX 请求时加上这个参数，或者放在 X-Xsrftoken 或 X-Csrftoken 请求头里即可。
+                }
+            }
+        }
+    });
+    function add_file(){
+         var files = document.getElementById('file_upload').files;
+         $('#title_attachment').val(getFileName(files[0].name));
+    }
+
+
+
+
+    function delet(self, data){
+        $(self).parents("div.item").remove()
+        attachment_list.splice(attachment_list.indexOf(data), 1);
+    }
+    function uploadFile() {
+        $("#modal_attachment_add").modal('hide');
+        // 获取文件信息
+        var files = document.getElementById('file_upload').files;
+        var name = $('#title_attachment').val();
+        if (files.length != 1){
+            alert('文件选取异常');
+            return false
+        }
+        var f = files[0];    // 获得上传文件信息
+
+        new file_tem(f, $('#file_tems'), name);
+
+    }
+
+    function file_tem(files, DOM, name){
+        this.DOM = DOM;
+        this.FILE = files;
+        this.name = name;
+
+        this.fileTime = {};
+        this.cache = null;
+        this.TEM = this.tem();
+        this.formData = this.fileData();
+        this.path_file = null;
+
+        this.init()
+    }
+    file_tem.prototype = {
+        init:function(){
+            var self = this;
+            this.TEM.find('span.file').text( this.prog() );
+            this.TEM.find('a.delete_upload')
+                .on('click',function(){self.del( $(this) )});
+
+            this.DOM.append(this.TEM);
+            this.filePost()
+        },
+        tem:function(){
+            return $('<div class="col-sm-12">'+
+                        '<div class="speed">'+
+                            '<div class="pull-left">'+
+                                '<span class="file"></span>'+
+                            '</div>'+
+                            '<div class="progress pull-left bar">'+
+                                '<progress class="progressCounter" value="0" max="100" style="margin:0px;"></progress>'+
+                            '</div>'+
+                            '<div class="pull-left">'+
+                                '<span class="endContent"></span>'+
+                                '<a class="delete_upload hidden"><i class="fa fa-trash-o"></i>删除</a>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>')
+        },
+        prog:function(){
+            var _size_num = this.FILE.size / 1024;
+            var num = Math.ceil(_size_num);
+            var measure = 'kb';
+            if (num < 100) {
+                num = _size_num.toFixed(1);
+            }
+            else if (num > 1024 * 1024) {
+                measure = 'G';
+                num = (_size_num / 1024 / 1024).toFixed(2);
+            }
+            else if (num > 1024) {
+                measure = 'M';
+                num = (_size_num / 1024).toFixed(1);
+            }
+            return this.name + '(' + num + measure + ')'
+        },
+        del:function(self){
+            self.parents('.col-sm-12')
+                .remove()
+                .appendTo(self.DOM);
+            console.log(attachment_list.indexOf(self.cache));
+            attachment_list.splice(attachment_list.indexOf(self.cache), 1);
+            // this = null
+        },
+        fileData:function(){
+            var formData = new FormData();
+                formData.append('file_upload', this.FILE);
+                formData.append('title', getFileName(this.FILE.name));
+                formData.append('user', "{{ item['id'] }}");
+                formData.append('category', "{{ category }}");
+            return formData
+        },
+        fileXhr:function(self){
+            var xhr = jQuery.ajaxSettings.xhr();
+            var progressElem = self.TEM.find('progress.progressCounter');
+            var data = self.TEM.find('.data');
+            xhr.upload.onloadstart = function(){
+                self.fileTime['ot'] = new Date().getTime();
+                self.fileTime['oloaded'] = 0;
+            };
+            xhr.upload.onprogress = function (ev) {
+                if (ev.lengthComputable) {
+                    var percent = 100 * ev.loaded / ev.total;
+                    progressElem.attr('value', percent);
+                    // var time = self.time(ev)
+                    // data.html(time);
+                }
+            };
+            return xhr
+        },
+        time:function(evt){
+            // 时间段
+            var nt = new Date().getTime();
+            var pertime = (nt-this.fileData['ot'])/1000;
+            this.fileTime['ot'] = new Date().getTime();
+            // 上传文件大小
+            var perload = evt.loaded - this.fileTime['oloaded'];
+            this.fileTime['oloaded'] = evt.loaded;
+            //上传速度计算
+            var speed = perload/pertime;//单位b/s
+            var bspeed = speed;
+            var units = 'b/s';//单位名称
+            if(speed/1024>1){
+                speed = speed/1024;
+                units = 'k/s';
+            }
+            if(speed/1024>1){
+                speed = speed/1024;
+                units = 'M/s';
+            }
+            speed = speed.toFixed(1);
+            //剩余时间
+            var resttime = ((evt.total-evt.loaded)/bspeed).toFixed(1);
+            return speed+units+'，剩余时间：'+resttime+'s'
+        },
+        success:function(self,data){
+            this.TEM.find('a.delete_upload').removeClass('hidden');
+            if (data.length > 0){
+                var res = JSON.parse(data);
+                self.cache = res['path_file']+'>'+res['title_file'] ;
+                attachment_list.push(self.cache)
+            }
+        },
+        filePost:function(){
+            var self = this;
+            $.ajax({
+                type: "post",
+                url: "/file/ajax",
+                data: self.formData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                //timeout:1000,
+                xhr: function () { //获取原生的xhr对象
+                    return self.fileXhr(self);
+                },
+                success: function (data) {
+                    self.success(self,data)
+                },
+                fail: function () {
+                    self.TEM.find(".endContent").html("失败，请稍后再试！");
+                }
+            })
+        }
+    }
+
+</script>
+<!--放弃-->
+<script>
+    function discard(id_discard){
+        var data = {
+            'id_discard': id_discard,
+            'action_type': '{{ action_type }}',
+            'page_current': '{{ page_current }}',
+            '_xsrf': getCookie('_xsrf')
+        };
+        $.ajax({
+            type: 'post',
+            url: '/news-discard/{{ category }}',
+            data: data,
+            success: function (data) {
+                window.location.href='/manage-news/{{ category }}?page_current={{ page_current }}'
+            }
+        });
+    }
+</script>
+<!--保存-->
+<script>
+    $('#submit').click(function(){
+        attachment_list = arr_(attachment_list);
+        console.log(attachment_list);
+        var data = {
+            'action_type': '{{ action_type }}',
+            'id': $('#id').val(),
+            'title': ($('#title').val()).trim(),
+            'summary': ($('#summary').val()).trim(),
+            'content': ($('#wangeditor').html()).trim(),
+            'attachment_list': JSON.stringify(attachment_list),
+            'customer_time': $('#customer_time').val(),
+            '_xsrf': getCookie('_xsrf')
+        };
+        if(data['title'].length<1 || data['summary'].length<1){
+            showAlert('提示', '未输入完整内容');
+            return false
+        }
+        console.log(data);
+//        return
+        $.ajax({
+            type: 'post',
+            url: "/news-maker/{{ category }}",
+            data: data,
+            success: function (result) {
+                if(result == 'success'){
+                    if (data['action_type'] == 'add'){
+                        window.location.href = '/manage-news/{{ category }}';
+                    }else{
+                        window.location.href = '/manage-news/{{ category }}?page_current={{ page_current }}';
+                    }
+                }else{
+                    showAlert('提示', '保存失败');
+                }
+            }
+        });
+    });
+    function arr_(arr){
+        var res = [];
+        var json = {};
+        for(var i = 0; i < arr.length; i++){
+            if(!json[arr[i]]){
+                res.push(arr[i]);
+                json[arr[i]] = 1;
+            }
+        }
+        return res;
+    }
+</script>
+<script>
+    $("#customer_time").jeDate({
+        format: "YYYY-MM-DD",
+        isinitVal: true,
+        isClear: false
+    })
+</script>
+{% end %}

@@ -1,0 +1,230 @@
+{% extends base.html %}
+
+{% block css %}
+<script type="text/javascript">
+    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    oFReader.onload = function (oFREvent) {
+        document.getElementById("photo_preview").src = oFREvent.target.result;
+    };
+
+    function discardImage(){
+        $('#photo').val('');
+        $('#photo_preview').attr('src', "{{ info_basic['logo'] }}");
+    }
+    function loadImageFile() {
+        // 判断是否选择了文件
+        if (document.getElementById("photo").files.length === 0) {
+            return;
+        }
+
+        var oFile = document.getElementById("photo").files[0];
+
+        // 判断上传文件大小
+        if (oFile.size > 8*1024*1024){
+            alert('图片太大，请重新选择，8M 以内');
+            return;
+        }
+        // 判断上传文件格式
+        if (!rFilter.test(oFile.type)) {
+            alert("请选择图片文件！");
+            return;
+        }
+        oFReader.readAsDataURL(oFile);
+    }
+</script>
+{% end %}
+
+{% block navi %}
+<h1 class="page-title">{{ title_content }}</h1>
+<ul class="breadcrumb">
+        <li><a >{{ title_page }}</a></li>
+        <li><a ></a></li>
+    </ul>
+{% end %}
+
+{% block content %}
+<!--顶部按钮-->
+<div class="btn-toolbar list-toolbar" style="margin-bottom: 30px;">
+    <a class="btn btn-primary" onclick="save()"><i class="fa fa-save"></i> 保存</a>
+    <a class="btn btn-primary" onclick="changeLogo()"><i class="fa fa-edit"></i> 修改 Logo</a>
+</div>
+<!--文字内容-->
+<div>
+    <form id='content_text' class="col s12" method="post" name="contact" action="/basic-edit/basic"
+          enctype="multipart/form-data">
+        {% raw xsrf_form_html() %}
+        <input type="hidden" value="{{ info_basic['id'] }}" name="id" id="id">
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">公司全称：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="name_full" type="text" class="form-control" name="name_full"
+                               value="{{ info_basic['name_full'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">公司简称：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                    <input id="name_short" type="text" class="form-control" name="name_short"
+                           value="{{ info_basic['name_short'] }}">
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">公司地址：</label>
+                     <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="address" type="text" class="form-control" name="address" value="{{ info_basic['address'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">联系电话：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="phone" type="text" class="form-control" name="phone" value="{{ info_basic['phone'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">备案号：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="icp" type="text" class="form-control" name="icp" value="{{ info_basic['icp'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">Copyright：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="copyright" type="text" class="form-control" name="copyright"
+                               value="{{ info_basic['copyright'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">QQ：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="qq" type="text" class="form-control" name="qq" value="{{ info_basic['qq'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 10px; ">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name_full" class="col-md-3 col-sm-4 control-label" style="line-height: 34px; padding-right: 0px">SEO关键字：</label>
+                    <div class="col-md-9 col-sm-8" style="padding-left: 0px">
+                        <input id="seo" type="text" class="form-control" name="seo" value="{{ info_basic['seo'] }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!--修改logo模态框-->
+<div id='modal_logo' class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <form action="/basic-edit/logo" method="post" enctype="multipart/form-data">
+            <div class="modal-content body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="submit" class="btn btn-primary" style="margin-left:  10px;">提交</button>
+                </div>
+                <div class="modal-body">
+                    <!--隐藏内容-->
+                    {% raw xsrf_form_html() %}
+                    <input type="hidden" value="{{ info_basic['id'] }}" name="id" id="id_logo">
+                    <!--选取logo-->
+                    <div id="modal-body">
+                        <div class="body-img" style="width: 100%; height: 100%;">
+                            <label style="font-size: 12px">最佳图片尺寸：100px*100px</label>
+                            <!--图片预览-->
+                            <img id="photo_preview" name='thumb' src="{{ info_basic['logo'] }}" alt="" width="100%" height="100%"
+                                 style="border-radius: 4px;  border: 1px solid #7b90b2; overflow: hidden;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input id="photo" type="file" class="btn btn-primary" name="photo"
+                                   style="width: 100px;opacity: 0; position: absolute;" onchange="loadImageFile();"/>
+                    <input class="btn btn-primary" type="button" style="float: left; margin-left:  10px;" value="选取图片"/>
+
+                    <input class="btn btn-primary" style="float: right; margin-right:  10px;" type="button" onclick="discardImage();" value="还原"/>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% end %}
+
+{% block js %}
+<!--保存文字信息-->
+<script>
+    function save(){
+        var data = {
+            'id':$('#id').val(),
+            'name_full': $('#name_full').val(),
+            'name_short': $('#name_short').val(),
+            'address': $('#address').val(),
+            'phone': $('#phone').val(),
+            'icp': $('#icp').val(),
+            'copyright': $('#copyright').val(),
+            'qq': $('#qq').val(),
+            'seo': $('#seo').val(),
+            '_xsrf': getCookie('_xsrf')
+        };
+        $.ajax({
+            type: 'post',
+            url: "/basic-edit/basic",
+//            data: $('#content_text').serialize(),
+            data:data,
+            success: function (result) {
+                if(result != 'false'){
+//                    showAlert('消息', '保存成功');
+                    location.reload()
+                }else{
+                    showAlert('错误', '保存失败');
+                }
+            }
+        });
+    }
+</script>
+<!--修改 Logo -->
+<script>
+    function changeLogo(){
+        $('#modal_logo').modal('show');
+    }
+</script>
+{% end %}
