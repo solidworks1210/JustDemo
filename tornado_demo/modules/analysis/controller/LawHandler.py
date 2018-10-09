@@ -10,7 +10,6 @@ from ...common.controller.base import BaseHandler
 
 # --------------------------------------------------------- 执法单位
 class GetLawUnitHandler(BaseHandler):
-    """获取执法单位信息"""
 
     @tornado.gen.coroutine
     def get(self):
@@ -27,7 +26,6 @@ class GetLawUnitHandler(BaseHandler):
 
 # --------------------------------------------------------- 执法人员
 class GetLawPeopleHandler(BaseHandler):
-    """获取执法人员信息"""
 
     @tornado.gen.coroutine
     def get(self):
@@ -44,7 +42,6 @@ class GetLawPeopleHandler(BaseHandler):
 
 # --------------------------------------------------------- 执法车辆
 class GetLawVehicleHandler(BaseHandler):
-    """获取执法车辆信息"""
 
     @tornado.gen.coroutine
     def get(self):
