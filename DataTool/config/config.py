@@ -7,6 +7,8 @@
 
 import os
 
+DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db', 'data_tool.sqlite')
+
 # 后台安全cookie名
 H_SECRETE_COOKIE = 'hfc'
 

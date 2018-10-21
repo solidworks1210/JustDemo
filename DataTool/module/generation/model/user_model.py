@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*- 
 # --------------------
-# Author:       SDN
 # Description:
-# Time:         2017/3/1
 # --------------------
-from module.generation.model.base_model import BaseModel
+import logging
+import traceback
+
+from module.common.model.base_model import BaseModel
 from utils import md5util
 
 
@@ -31,7 +32,7 @@ class UserModel(BaseModel):
 
     def get_user_total_page_with_super(self, items_per_page=10):
         try:
-            all_items = self.db.row_count("select count(*) from user")
+            all_items = self.db.count("select count(*) from user;")
             if all_items % items_per_page != 0:
                 page_total = all_items / items_per_page + 1
             else:
@@ -63,7 +64,7 @@ class UserModel(BaseModel):
 
     def get_user_total_page_without_super(self, items_per_page=10):
         try:
-            all_items = self.db.row_count("select count(*) from user where role!='0'")
+            all_items = self.db.count("select count(*) from user where role!='0'")
             if all_items % items_per_page != 0:
                 page_total = all_items / items_per_page + 1
             else:
@@ -96,14 +97,17 @@ class UserModel(BaseModel):
         return user_name
 
     def add_user(self, **kwargs):
+        """
+        添加用户
+        :param kwargs:
+        :return:
+        """
         try:
-            result = self.db.insert('insert into user (name, password, role) values (%s, %s, %s)',
-                                    *(kwargs['name'], kwargs['password'], kwargs['role']))
-            self.db.commit()
+            kwargs = {'name': kwargs['name'], 'password': md5util.md5(kwargs['password']), 'role': kwargs['role']}
+            result = self.db.insert('user', auto_commit=True, **kwargs)
             return result
-        except Exception as e:
-            print 'EmployeeModel:', e
-            self.db.rollback()
+        except:
+            logging.exception(traceback.format_exc())
             return -1
 
     def name_not_exist(self, name):
@@ -125,12 +129,12 @@ class UserModel(BaseModel):
     # 删除一个员工
     def delete_one_user(self, name):
         try:
-            result = self.db.execute_rowcount("delete from user where name=%s", name)
+            result = self.db.execute("delete from user where name=%s;", name)
             self.db.commit()
             return result
-        except Exception as e:
-            print 'EmployeeModel:', e
+        except:
             self.db.rollback()
+            logging.exception(traceback.format_exc())
             return -1
 
     def get_password(self, name):
@@ -139,7 +143,7 @@ class UserModel(BaseModel):
         :param name:
         :return:
         """
-        ps = self.db.get('select password from user where name=%s', name)
+        ps = self.db.get('select password from user where name=%s;', name)
         return ps['password'].encode('utf-8')
 
     def modify_password(self, name, new_password):
@@ -150,35 +154,35 @@ class UserModel(BaseModel):
         :return: 删除失败 0、sql错误 -1， 成功其他
         """
         try:
-            result = self.db.update('update user set password=%s  where name=%s',
-                                    *(new_password, name))
+            result = self.db.execute(
+                'update user set password=%s  where name=%s;', *(new_password, name))
             self.db.commit()
             return result
-        except Exception as e:
-            print 'EmployeeModel: ', e
+        except:
             self.db.rollback()
+            logging.exception(traceback.format_exc())
             return -1
 
     def modify_role(self, name, role):
         try:
-            result = self.db.update('update user set role=%s  where name=%s',
-                                    *(role, name))
+            result = self.db.execute(
+                'update user set role=%s  where name=%s;',  *(role, name))
             self.db.commit()
             return result
-        except Exception as e:
-            print 'EmployeeModel:', e
+        except:
             self.db.rollback()
+            logging.exception(traceback.format_exc())
             return -1
 
     def modify_role_password(self, name, role, new_password):
         try:
-            result = self.db.update('update user set role=%s, password=%s  where name=%s',
-                                    *(role, new_password, name))
+            result = self.db.execute(
+                'update user set role=%s, password=%s  where name=%s;', *(role, new_password, name))
             self.db.commit()
             return result
-        except Exception as e:
-            print 'EmployeeModel:', e
+        except:
             self.db.rollback()
+            logging.exception(traceback.format_exc())
             return -1
 
     def verify(self, name, ps):
@@ -199,26 +203,24 @@ class UserModel(BaseModel):
     def is_user_table_empty(self):
         # 判断用户表是否为空
         try:
-            countt = self.db.row_count('select count(*) from user ')
+            countt = self.db.count('select count(*) from user;')
             if countt == 0:
                 return True
             else:
                 return False
-        except Exception as e:
-            print __name__, 'is_user_table_empty exception: ', e
+        except:
+            logging.error(traceback.format_exc())
             return False
 
     def create_super_admin(self, name, ps):
-        # 创建用户
-        try:
-            result = self.db.insert('insert into user (name, password, role) values (%s, %s, %s)',
-                                    *(name, md5util.md5(ps), '0'))
-            self.db.commit()
-            return result
-        except Exception as e:
-            print __name__, 'create_super_admin exception: ', e
-            self.db.rollback()
-            return -1
+        """
+        创建超级用户，在用户表为空的时候才创建超级用户
+        :param name:
+        :param ps:
+        :return:
+        """
+        kwargs = {'name': name, 'password': ps, 'role': '0'}
+        return self.add_user(**kwargs)
 
 
 user_model = UserModel()

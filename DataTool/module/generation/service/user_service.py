@@ -3,7 +3,7 @@
 # --------------------
 # Description:  
 # --------------------
-from module.generation.service.base_service import BaseService
+from module.common.service.base_service import BaseService
 
 
 class UserService(BaseService):

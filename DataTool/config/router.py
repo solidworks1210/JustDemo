@@ -13,7 +13,7 @@ HANDLERS = [
     (r'/logout', user_handler.LogoutHandler),  # 登出
     (r'/user', user_handler.UserHandler),  # 员工管理
 
-    (r'/xxx', user_handler.UserHandler0),  # 员工管理
+    (r'/xxx', user_handler.UserHandler),  # 员工管理
 
 
     # # 基本信息

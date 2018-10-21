@@ -2,12 +2,11 @@
 # --------------------
 # Author:       SDN
 # Description:	分页用到的参数
-# Time:         2017/3/15
 # --------------------
 
 
 # 员工管理每页显示的条数
-manage_user = 12
+manage_user = 3
 
 # 首页
 show_home_bar = 4

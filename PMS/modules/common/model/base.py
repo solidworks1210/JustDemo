@@ -8,7 +8,7 @@ import re
 
 from configs import tables
 from configs.config import DB
-from utils.tornmq import Connection
+from utils.tornsq import Connection
 
 
 class BaseModel(object):

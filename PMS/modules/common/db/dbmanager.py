@@ -5,7 +5,7 @@
 # Time:         2017/3/1
 # --------------------
 
-from utils.tornmq import Connection
+from utils.tornsq import Connection
 from config.config import USER, PASSWORD, PORT, HOST, DATABASE
 
 # 连接MySQL数据库

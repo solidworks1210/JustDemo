@@ -13,8 +13,8 @@ from PIL import Image
 from tornado.log import app_log
 
 from config import path
-from module.generation.model.base_model import BaseModel
-from utils import ImageUtils, PathUtils, TimeUtils, StringUtils
+from module.common.model.base_model import BaseModel
+from utils import PathUtils, TimeUtils, StringUtils
 
 
 class FWBImageReceiveModel(BaseModel):

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flatty - Flat administration template</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+
+    <!--[if lt IE 9]>
+    <script src='/static/assets/javascripts/html5shiv.js' type='text/javascript'></script>
+    <![endif]-->
+    <link href='/static/assets/stylesheets/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css'/>
+    <link href='/static/assets/stylesheets/bootstrap/bootstrap-responsive.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / jquery ui -->
+    <link href='/static/assets/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <link href='/static/assets/stylesheets/jquery_ui/jquery.ui.1.10.0.ie.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / switch buttons -->
+    <link href='/static/assets/stylesheets/plugins/bootstrap_switch/bootstrap-switch.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / xeditable -->
+    <link href='/static/assets/stylesheets/plugins/xeditable/bootstrap-editable.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <link href='/static/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / wysihtml5 (wysywig) -->
+    <link href='/static/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / jquery file upload -->
+    <link href='/static/assets/stylesheets/plugins/jquery_fileupload/jquery.fileupload-ui.css' media='all'
+          rel='stylesheet' type='text/css'/>
+    <!-- / full calendar -->
+    <link href='/static/assets/stylesheets/plugins/fullcalendar/fullcalendar.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / select2 -->
+    <link href='/static/assets/stylesheets/plugins/select2/select2.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- / mention -->
+    <link href='/static/assets/stylesheets/plugins/mention/mention.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- / tabdrop (responsive tabs) -->
+    <link href='/static/assets/stylesheets/plugins/tabdrop/tabdrop.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- / jgrowl notifications -->
+    <link href='/static/assets/stylesheets/plugins/jgrowl/jquery.jgrowl.min.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / datatables -->
+    <link href='/static/assets/stylesheets/plugins/datatables/bootstrap-datatable.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / dynatrees (file trees) -->
+    <link href='/static/assets/stylesheets/plugins/dynatree/ui.dynatree.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / color picker -->
+    <link href='/static/assets/stylesheets/plugins/bootstrap_colorpicker/bootstrap-colorpicker.css' media='all'
+          rel='stylesheet' type='text/css'/>
+    <!-- / datetime picker -->
+    <link href='/static/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css'
+          media='all' rel='stylesheet' type='text/css'/>
+    <!-- / daterange picker) -->
+    <link href='/static/assets/stylesheets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css' media='all'
+          rel='stylesheet' type='text/css'/>
+    <!-- / flags (country flags) -->
+    <link href='/static/assets/stylesheets/plugins/flags/flags.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- / slider nav (address book) -->
+    <link href='/static/assets/stylesheets/plugins/slider_nav/slidernav.css' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / fuelux (wizard) -->
+    <link href='/static/assets/stylesheets/plugins/fuelux/wizard.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- / flatty theme -->
+    <link href='/static/assets/stylesheets/light-theme.css' id='color-settings-body-color' media='all' rel='stylesheet'
+          type='text/css'/>
+    <!-- / demo -->
+    <link href='/static/assets/stylesheets/demo.css' media='all' rel='stylesheet' type='text/css'/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- 自定义分页插件样式（共有）-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .tcdPageCode {
+            padding: 15px 1px;
+            text-align: left;
+            color: #ccc;
+            text-align: left;
+        }
+
+        .tcdPageCode a {
+            display: inline-block;
+            color: #637492;
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            margin: 0 2px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .tcdPageCode a:hover {
+            text-decoration: none;
+            border: 1px solid #5f6f8c;
+        }
+
+        .tcdPageCode span.current {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            margin: 0 2px;
+            color: #fff;
+            background-color: #5f6f8d;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .tcdPageCode span.disabled {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            margin: 0 2px;
+            color: #bfbfbf;
+            background: #f2f2f2;
+            border: 1px solid #bfbfbf;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class='contrast-red '>
+
+<!--添加模态框-->
+    <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="box-shadow:none;">
+        <div class="modal-dialog">
+            <form  class="form-horizontal" role="form" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">添加员工</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                              <input id="add_name" type="text" class="form-control" name="add_name">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                              <input id="add_ps" type="password" name="add_ps" class="form-control">
+                            </div>
+                         </div>
+
+                        <!--超级管理员显示-->
+                         <div class="form-group"
+                              {% if role_admin != '0' %}
+                                hidden
+                            {% end %}
+                         >
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <div class="checkbox">
+                                <label><input type="checkbox"  id="add_checkbox" class="add_checkbox">管理员</label>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="margin-left:  10px;" data-dismiss="modal">关闭 </button>
+                        <a class="btn btn-success" onclick="add()"> 添加员工</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--修改模态框-->
+    <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false" style="box-shadow:none;">
+        <div class="modal-dialog">
+            <form  class="form-horizontal" role="form" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal_edit_label">修改员工信息</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden" id="modal-user">
+                        <input type="hidden" id="role_user_edit">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                              <input id="name_edit" type="text" class="form-control" name="name_edit" readonly="true">
+                            </div>
+                        </div>
+                         <div class="form-group"{% if role_admin == '0' %} hidden {% end %}>
+                            <label class="col-sm-2 control-label">旧密码</label>
+                            <div class="col-sm-10">
+                              <input id="ps_old_edit" type="password" name="ps_old_edit" class="form-control">
+                            </div>
+                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                {% if role_admin == '0' %}
+                                    改密码
+                                {% else %}
+                                    新密码
+                                {% end %}
+                            </label>
+                            <div class="col-sm-10">
+                              <input id="ps_new_edit" type="password" name="ps_new_edit" class="form-control">
+                            </div>
+                         </div>
+                        <div class="form-group" id="checkbox_edit_div">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" id="checkbox_edit" class="add_checkbox">管理员</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="margin-left:  10px;"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <a class="btn btn-success" onclick="submit_modify()"> 提交</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<header>
+    <div class='navbar'>
+        <div class='navbar-inner'>
+            <div class='container-fluid'>
+                <a class='brand' href='index.html'>
+                    <i class='icon-heart-empty'></i>
+                    <span class='hidden-phone'>Flatty</span>
+                </a>
+                <a class='toggle-nav btn pull-left' href='#'>
+                    <i class='icon-reorder'></i>
+                </a>
+                <ul class='nav pull-right'>
+                    <li class='dropdown light only-icon'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            <i class='icon-adjust'></i>
+                        </a>
+                        <ul class='dropdown-menu color-settings'>
+                            <li class='color-settings-body-color'>
+                                <div class='color-title'>Body color</div>
+                                <a data-change-to='/static/assets/stylesheets/light-theme.css' href='#'>
+                                    Light
+                                    <small>(default)</small>
+                                </a>
+                                <a data-change-to='/static/assets/stylesheets/dark-theme.css' href='#'>
+                                    Dark
+                                </a>
+                                <a data-change-to='/static/assets/stylesheets/dark-blue-theme.css' href='#'>
+                                    Dark blue
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li class='color-settings-contrast-color'>
+                                <div class='color-title'>Contrast color</div>
+                                <a href="#" data-change-to="contrast-red"><i class='icon-adjust text-red'></i>
+                                    Red
+                                    <small>(default)</small>
+                                </a>
+                                <a href="#" data-change-to="contrast-blue"><i class='icon-adjust text-blue'></i>
+                                    Blue
+                                </a>
+                                <a href="#" data-change-to="contrast-orange"><i class='icon-adjust text-orange'></i>
+                                    Orange
+                                </a>
+                                <a href="#" data-change-to="contrast-purple"><i class='icon-adjust text-purple'></i>
+                                    Purple
+                                </a>
+                                <a href="#" data-change-to="contrast-green"><i class='icon-adjust text-green'></i>
+                                    Green
+                                </a>
+                                <a href="#" data-change-to="contrast-muted"><i class='icon-adjust text-muted'></i>
+                                    Muted
+                                </a>
+                                <a href="#" data-change-to="contrast-fb"><i class='icon-adjust text-fb'></i>
+                                    Facebook
+                                </a>
+                                <a href="#" data-change-to="contrast-dark"><i class='icon-adjust text-dark'></i>
+                                    Dark
+                                </a>
+                                <a href="#" data-change-to="contrast-pink"><i class='icon-adjust text-pink'></i>
+                                    Pink
+                                </a>
+                                <a href="#" data-change-to="contrast-grass-green"><i
+                                        class='icon-adjust text-grass-green'></i>
+                                    Grass green
+                                </a>
+                                <a href="#" data-change-to="contrast-sea-blue"><i class='icon-adjust text-sea-blue'></i>
+                                    Sea blue
+                                </a>
+                                <a href="#" data-change-to="contrast-banana"><i class='icon-adjust text-banana'></i>
+                                    Banana
+                                </a>
+                                <a href="#" data-change-to="contrast-dark-orange"><i
+                                        class='icon-adjust text-dark-orange'></i>
+                                    Dark orange
+                                </a>
+                                <a href="#" data-change-to="contrast-brown"><i class='icon-adjust text-brown'></i>
+                                    Brown
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown medium only-icon widget'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            <i class='icon-rss'></i>
+                            <div class='label'>5</div>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='#'>
+                                    <div class='widget-body'>
+                                        <div class='pull-left icon'>
+                                            <i class='icon-user text-success'></i>
+                                        </div>
+                                        <div class='pull-left text'>
+                                            John Doe signed up
+                                            <small class='muted'>just now</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='#'>
+                                    <div class='widget-body'>
+                                        <div class='pull-left icon'>
+                                            <i class='icon-inbox text-error'></i>
+                                        </div>
+                                        <div class='pull-left text'>
+                                            New Order #002
+                                            <small class='muted'>3 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='#'>
+                                    <div class='widget-body'>
+                                        <div class='pull-left icon'>
+                                            <i class='icon-comment text-warning'></i>
+                                        </div>
+                                        <div class='pull-left text'>
+                                            America Leannon commented Flatty with veeery long text.
+                                            <small class='muted'>1 hour ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='#'>
+                                    <div class='widget-body'>
+                                        <div class='pull-left icon'>
+                                            <i class='icon-user text-success'></i>
+                                        </div>
+                                        <div class='pull-left text'>
+                                            Jane Doe signed up
+                                            <small class='muted'>last week</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='#'>
+                                    <div class='widget-body'>
+                                        <div class='pull-left icon'>
+                                            <i class='icon-inbox text-error'></i>
+                                        </div>
+                                        <div class='pull-left text'>
+                                            New Order #001
+                                            <small class='muted'>1 year ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class='widget-footer'>
+                                <a href='#'>All notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown dark user-menu'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            <img alt='Mila Kunis' height='23' src='/static/assets/images/avatar.jpg' width='23'/>
+                            <span class='user-name hidden-phone'>Mila Kunis</span>
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='user_profile.html'>
+                                    <i class='icon-user'></i>
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href='user_profile.html'>
+                                    <i class='icon-cog'></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='sign_in.html'>
+                                    <i class='icon-signout'></i>
+                                    Sign out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form accept-charset="UTF-8" action="search_results.html" class="navbar-search pull-right hidden-phone"
+                      method="get"/>
+                <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;"/></div>
+                <button class="btn btn-link icon-search" name="button" type="submit"></button>
+                <input autocomplete="off" class="search-query span2" id="q_header" name="q" placeholder="Search..."
+                       type="text" value=""/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<div id='wrapper'>
+    <div id='main-nav-bg'></div>
+    <nav class='' id='main-nav'>
+        <div class='navigation'>
+            <div class='search'>
+                <form accept-charset="UTF-8" action="search_results.html" method="get"/>
+                <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;"/></div>
+                <div class='search-wrapper'>
+                    <input autocomplete="off" class="search-query" id="q" name="q" placeholder="Search..." type="text"
+                           value=""/>
+                    <button class="btn btn-link icon-search" name="button" type="submit"></button>
+                </div>
+                </form>
+            </div>
+            <ul class='nav nav-stacked'>
+                <li class=''>
+                    <a href='index.html'>
+                        <i class='icon-dashboard'></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class=''>
+                    <a class='dropdown-collapse' href='#'>
+                        <i class='icon-edit'></i>
+                        <span>Forms</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li class=''>
+                            <a href='form_styles.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Form styles and features</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='form_components.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Form components</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='validations.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Validations</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='wizard.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Wizard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class='dropdown-collapse ' href='#'>
+                        <i class='icon-tint'></i>
+                        <span>UI Elements & Widgets</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li class=''>
+                            <a href='ui_elements.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>UI Elements</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='widgets.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Widgets</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=''>
+                    <a href='buttons_and_icons.html'>
+                        <i class='icon-star'></i>
+                        <span>Buttons & Icons</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='dropdown-collapse ' href='#'>
+                        <i class='icon-cogs'></i>
+                        <span>Components</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li class=''>
+                            <a href='charts.html'>
+                                <i class='icon-bar-chart'></i>
+                                <span>Charts</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='address_book.html'>
+                                <i class='icon-envelope'></i>
+                                <span>Address book</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='chats.html'>
+                                <i class='icon-comments'></i>
+                                <span>Chats</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='inplace_editing.html'>
+                                <i class='icon-pencil'></i>
+                                <span>In-place editing</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='filetrees.html'>
+                                <i class='icon-list-ul'></i>
+                                <span>File trees</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='fileupload.html'>
+                                <i class='icon-file'></i>
+                                <span>Fileupload</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='todo.html'>
+                                <i class='icon-list-alt'></i>
+                                <span>Todo list</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='wysiwyg.html'>
+                                <i class='icon-paste'></i>
+                                <span>WYSIWYG</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class='active'>
+                    <a href='tables.html'>
+                        <i class='icon-table'></i>
+                        <span>Tables</span>
+                    </a>
+                </li>
+                <li class=''>
+                    <a href='grid.html'>
+                        <i class='icon-th'></i>
+                        <span>Grid</span>
+                    </a>
+                </li>
+                <li class=''>
+                    <a href='type.html'>
+                        <i class='icon-font'></i>
+                        <span>Typography</span>
+                    </a>
+                </li>
+                <li class=''>
+                    <a href='calendar.html'>
+                        <i class='icon-calendar'></i>
+                        <span>Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='dropdown-collapse ' href='#'>
+                        <i class='icon-book'></i>
+                        <span>Example pages</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li class=''>
+                            <a href='invoice.html'>
+                                <i class='icon-money'></i>
+                                <span>Invoice</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='gallery.html'>
+                                <i class='icon-picture'></i>
+                                <span>Gallery</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='timeline.html'>
+                                <i class='icon-time'></i>
+                                <span>Timeline</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='pricing_tables.html'>
+                                <i class='icon-table'></i>
+                                <span>Pricing tables</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='user_profile.html'>
+                                <i class='icon-user'></i>
+                                <span>User profile</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='err404.html'>
+                                <i class='icon-question-sign'></i>
+                                <span>404 Error</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='err500.html'>
+                                <i class='icon-cogs'></i>
+                                <span>500 Error</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='sign_in.html'>
+                                <i class='icon-signin'></i>
+                                <span>Sign in</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='faq.html'>
+                                <i class='icon-bullhorn'></i>
+                                <span>FAQ</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='orders.html'>
+                                <i class='icon-inbox'></i>
+                                <span>Orders</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='search_results.html'>
+                                <i class='icon-search'></i>
+                                <span>Search results</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='blank.html'>
+                                <i class='icon-circle-blank'></i>
+                                <span>Blank page</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class='dropdown-collapse ' href='#'>
+                        <i class='icon-cog'></i>
+                        <span>Layouts</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li class=''>
+                            <a href='closed_navigation.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Closed navigation</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='fixed_header.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Fixed header</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='fixed_navigation.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Fixed navigation</span>
+                            </a>
+                        </li>
+                        <li class=''>
+                            <a href='fixed_navigation_and_header.html'>
+                                <i class='icon-caret-right'></i>
+                                <span>Fixed navigation & header</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=''>
+                    <a href='email_templates.html'>
+                        <i class='icon-mail-reply'></i>
+                        <span>Email templates</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='dropdown-collapse' href='#'>
+                        <i class='icon-folder-open-alt'></i>
+                        <span>Four level dropdown</span>
+                        <i class='icon-angle-down angle-down'></i>
+                    </a>
+                    <ul class='nav nav-stacked'>
+                        <li>
+                            <a class='dropdown-collapse' href='#'>
+                                <i class='icon-caret-right'></i>
+                                <span>Second level</span>
+                                <i class='icon-angle-down angle-down'></i>
+                            </a>
+                            <ul class='nav nav-stacked'>
+                                <li>
+                                    <a class='dropdown-collapse' href='#'>
+                                        <i class='icon-caret-right'></i>
+                                        <span>Third level</span>
+                                        <i class='icon-angle-down angle-down'></i>
+                                    </a>
+                                    <ul class='nav nav-stacked'>
+                                        <li>
+                                            <a href='#'>
+                                                <i class='icon-caret-right'></i>
+                                                <span>Fourth level</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href='#'>
+                                                <i class='icon-caret-right'></i>
+                                                <span>Another fourth level</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section id='content'>
+        <div class='container-fluid'>
+            <div class='row-fluid' id='content-wrapper'>
+                <div class='span12'>
+                    <!--title-->
+                    <div class='row-fluid'>
+                        <div class='span12'>
+                            <div class='page-header'>
+                                <h1 class='pull-left'>
+                                    <span>用户管理</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!--顶部按钮-->
+                    <div class="btn-toolbar list-toolbar">
+                        <a class="btn btn-primary" href="#modal_add" data-toggle="modal"><i class="fa fa-plus"></i> 添加用户</a>
+                    </div>
+                    <!--table-->
+                    <div class="row-fluid">
+                        <div class="span12 box bordered-box purple-border" style="margin-bottom:0;">
+                            <div class="box-content box-no-padding">
+                                <table class="table table-striped" style="margin-bottom:0;">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            账户
+                                        </th>
+                                        <th>
+                                            类型
+                                        </th>
+                                        <th>
+                                            操作
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in items %}
+                                    <tr>
+                                        <!--0-->
+                                        <td>{{ items.index(item)+1 }}</td>
+                                        <!--1-->
+                                        <td>{{ item['name'] }}</td>
+                                        <!--账户类型 2-->
+                                        {% if item['role'] == '1' %}
+                                        <td sdn="admin">管理员</td>
+                                        {% elif item['role'] == '2' %}
+                                        <td sdn="staff">员工</td>
+                                        {% elif item['role'] == '0' %}
+                                        <td sdn="super">超级管理员</td>
+                                        {% end %}
+                                        <!--3-->
+                                        <td class="hidden">{{ item['role'] }}</td>
+                                        <td>
+                                            <a class="a_edit btn btn-success btn-mini" href="#"><i class="icon-edit"></i></a>
+                                            {% if (role_admin == '0' and item['role'] != '0') or (role_admin == '1' and item['role'] == '2')  %}
+                                                <a class="btn btn-danger btn-mini" href="#" onclick="execute('{{ item['name'] }}')"><i class="icon-remove"></i></a>
+                                            {% end %}
+                                        </td>
+                                    </tr>
+                                    {% end %}
+                                    </tbody>
+                                </table>
+                                {% if page_total > 1 %}
+                                <!--分页栏-->
+                                <div class="tcdPageCode"></div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- / jquery -->
+<script src='/static/assets/javascripts/jquery/jquery.min.js' type='text/javascript'></script>
+<!-- / jquery mobile events (for touch and slide) -->
+<script src='/static/assets/javascripts/plugins/mobile_events/jquery.mobile-events.min.js'
+        type='text/javascript'></script>
+<!-- / jquery migrate (for compatibility with new jquery) -->
+<script src='/static/assets/javascripts/jquery/jquery-migrate.min.js' type='text/javascript'></script>
+<!-- / jquery ui -->
+<script src='/static/assets/javascripts/jquery_ui/jquery-ui.min.js' type='text/javascript'></script>
+<!-- / bootstrap -->
+<script src='/static/assets/javascripts/bootstrap/bootstrap.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/flot/excanvas.js' type='text/javascript'></script>
+<!-- / sparklines -->
+<script src='/static/assets/javascripts/plugins/sparklines/jquery.sparkline.min.js' type='text/javascript'></script>
+<!-- / flot charts -->
+<script src='/static/assets/javascripts/plugins/flot/flot.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/flot/flot.resize.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/flot/flot.pie.js' type='text/javascript'></script>
+<!-- / bootstrap switch -->
+<script src='/static/assets/javascripts/plugins/bootstrap_switch/bootstrapSwitch.min.js'
+        type='text/javascript'></script>
+<!-- / fullcalendar -->
+<script src='/static/assets/javascripts/plugins/fullcalendar/fullcalendar.min.js' type='text/javascript'></script>
+<!-- / datatables -->
+<script src='/static/assets/javascripts/plugins/datatables/jquery.dataTables.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/datatables/jquery.dataTables.columnFilter.js'
+        type='text/javascript'></script>
+<!-- / wysihtml5 -->
+<script src='/static/assets/javascripts/plugins/common/wysihtml5.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/common/bootstrap-wysihtml5.js' type='text/javascript'></script>
+<!-- / select2 -->
+<script src='/static/assets/javascripts/plugins/select2/select2.js' type='text/javascript'></script>
+<!-- / color picker -->
+<script src='/static/assets/javascripts/plugins/bootstrap_colorpicker/bootstrap-colorpicker.min.js'
+        type='text/javascript'></script>
+<!-- / mention -->
+<script src='/static/assets/javascripts/plugins/mention/mention.min.js' type='text/javascript'></script>
+<!-- / input mask -->
+<script src='/static/assets/javascripts/plugins/input_mask/bootstrap-inputmask.min.js' type='text/javascript'></script>
+<!-- / fileinput -->
+<script src='/static/assets/javascripts/plugins/fileinput/bootstrap-fileinput.js' type='text/javascript'></script>
+<!-- / modernizr -->
+<script src='/static/assets/javascripts/plugins/modernizr/modernizr.min.js' type='text/javascript'></script>
+<!-- / retina -->
+<script src='/static/assets/javascripts/plugins/retina/retina.js' type='text/javascript'></script>
+<!-- / fileupload -->
+<script src='/static/assets/javascripts/plugins/fileupload/tmpl.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/load-image.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/canvas-to-blob.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/jquery.iframe-transport.min.js'
+        type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/jquery.fileupload.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/jquery.fileupload-fp.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/jquery.fileupload-ui.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/fileupload/jquery.fileupload-init.js' type='text/javascript'></script>
+<!-- / timeago -->
+<script src='/static/assets/javascripts/plugins/timeago/jquery.timeago.js' type='text/javascript'></script>
+<!-- / slimscroll -->
+<script src='/static/assets/javascripts/plugins/slimscroll/jquery.slimscroll.min.js' type='text/javascript'></script>
+<!-- / autosize (for textareas) -->
+<script src='/static/assets/javascripts/plugins/autosize/jquery.autosize-min.js' type='text/javascript'></script>
+<!-- / charCount -->
+<script src='/static/assets/javascripts/plugins/charCount/charCount.js' type='text/javascript'></script>
+<!-- / validate -->
+<script src='/static/assets/javascripts/plugins/validate/jquery.validate.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/validate/additional-methods.js' type='text/javascript'></script>
+<!-- / naked password -->
+<script src='/static/assets/javascripts/plugins/naked_password/naked_password-0.2.4.min.js'
+        type='text/javascript'></script>
+<!-- / nestable -->
+<script src='/static/assets/javascripts/plugins/nestable/jquery.nestable.js' type='text/javascript'></script>
+<!-- / tabdrop -->
+<script src='/static/assets/javascripts/plugins/tabdrop/bootstrap-tabdrop.js' type='text/javascript'></script>
+<!-- / jgrowl -->
+<script src='/static/assets/javascripts/plugins/jgrowl/jquery.jgrowl.min.js' type='text/javascript'></script>
+<!-- / bootbox -->
+<script src='/static/assets/javascripts/plugins/bootbox/bootbox.min.js' type='text/javascript'></script>
+<!-- / inplace editing -->
+<script src='/static/assets/javascripts/plugins/xeditable/bootstrap-editable.min.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/xeditable/wysihtml5.js' type='text/javascript'></script>
+<!-- / ckeditor -->
+<script src='/static/assets/javascripts/plugins/ckeditor/ckeditor.js' type='text/javascript'></script>
+<!-- / filetrees -->
+<script src='/static/assets/javascripts/plugins/dynatree/jquery.dynatree.min.js' type='text/javascript'></script>
+<!-- / datetime picker -->
+<script src='/static/assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js'
+        type='text/javascript'></script>
+<!-- / daterange picker -->
+<script src='/static/assets/javascripts/plugins/bootstrap_daterangepicker/moment.min.js'
+        type='text/javascript'></script>
+<script src='/static/assets/javascripts/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.js'
+        type='text/javascript'></script>
+<!-- / max length -->
+<script src='/static/assets/javascripts/plugins/bootstrap_maxlength/bootstrap-maxlength.min.js'
+        type='text/javascript'></script>
+<!-- / dropdown hover -->
+<script src='/static/assets/javascripts/plugins/bootstrap_hover_dropdown/twitter-bootstrap-hover-dropdown.min.js'
+        type='text/javascript'></script>
+<!-- / slider nav (address book) -->
+<script src='/static/assets/javascripts/plugins/slider_nav/slidernav-min.js' type='text/javascript'></script>
+<!-- / fuelux -->
+<script src='/static/assets/javascripts/plugins/fuelux/wizard.js' type='text/javascript'></script>
+<!-- / flatty theme -->
+<script src='/static/assets/javascripts/nav.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/tables.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/theme.js' type='text/javascript'></script>
+<!-- / demo -->
+<script src='/static/assets/javascripts/demo/jquery.mockjax.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/demo/inplace_editing.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/demo/charts.js' type='text/javascript'></script>
+<script src='/static/assets/javascripts/demo/demo.js' type='text/javascript'></script>
+
+<!--引用分页栏插件(使用了jquery，记得同时引用)-->
+<script src="/static/common/js/jquery.page.js"></script>
+
+<script src='/static/common/js/utils.js' type='text/javascript'></script>
+
+<!--使用分页插件-->
+<script>
+    $(".tcdPageCode").createPage({
+        pageCount: '{{ page_total }}',   // 总页数
+        current: '{{ page_current }}', // 当前页数
+        backFn: function (p) {
+        // p 是点击的哪一页，点击时出发该函数
+            window.location.href='/user?page_current=' + p;
+        }
+    });
+</script>
+<!--添加-->
+<script>
+    function add() {
+        var data_add = {
+            'name_add':($("#add_name").val()).trim(),
+            'ps_add':($("#add_ps").val()).trim(),
+            '_xsrf': getCookie("_xsrf")
+
+        };
+        if (!verify_name(data_add['name_add'])){
+             alert('用户名格式误！');
+            return false
+        }
+        if (!verify_ps(data_add['ps_add'])){
+             alert('密码输入有误！');
+            return false
+        }
+        if ($('#add_checkbox').is(':checked')) {
+            data_add['role_add'] = 'admin';
+        } else {
+            data_add['role_add'] = 'staff';
+        }
+        console.log(data_add)
+
+        $.ajax({
+            type: 'post',
+            url: '/user',
+            data: data_add,
+            success: function (data) {
+                if (data != 'false') {
+                     window.location.href='/user?page_current=' + data;
+                } else {
+                    alert('操作失败');
+                }
+            }
+        });
+    }
+</script>
+<!--删除-->
+<script>
+    function execute(name) {
+        if (true) {
+            $.ajax({
+                type: 'delete',
+                url: '/user',
+                data: {'name_del': name, 'page_current':'{{ page_current }}', '_xsrf': getCookie("_xsrf")},
+                success: function (data) {
+                    if (data == 'false'){
+                        showAlert('信息', '删除失败');
+                    }else{
+                        window.location.href='/user?page_current=' + data;
+                    }
+                }
+            });
+        }
+    }
+</script>
+<!--修改-->
+<script>
+    // 打开编辑模态框
+    $('a.a_edit').click(function () {
+        $('#checkbox_edit_div').removeAttr('hidden');
+        //根据选择条目，初始化模态框中的内容
+        var td = $(this).parents('tr').find('td');
+        // 用户角色
+        $('#role_user_edit').val(td.eq(2).attr('sdn'));
+        // 用户名
+        $('#name_edit').val(td.eq(1).text());
+        // 旧密码
+        $('#ps_old_edit').val('');
+        // 新密码
+        $('#ps_new_edit').val('');
+        // 管理员
+        var temp = td.eq(2).attr('sdn');
+        if (temp == 'admin'){
+            $('#checkbox_edit').prop("checked",true)
+        }else if(temp == 'super'){
+             $('#checkbox_edit_div').attr('hidden','hidden')
+        }else{
+            $('#checkbox_edit').prop("checked", false)
+        }
+        {% if role_admin != '0' %}
+            $('#checkbox_edit_div').attr('hidden','hidden');
+        {% end %}
+
+        $('#modal_edit').modal('show');
+    });
+    // 提交编辑
+    function submit_modify(){
+        var data = {
+            '_xsrf': getCookie('_xsrf'),
+            'name_edit': ($('#name_edit').val()).trim(),
+            'ps_new': ($('#ps_new_edit').val()).trim(),
+            'ps_old':($('#ps_old_edit').val()).trim(),
+            'role_user_old': ($('#role_user_edit').val()).trim()
+        };
+        if ($('#checkbox_edit').is(':checked')) {
+            data['role_user_new'] = 'admin';
+        } else {
+            data['role_user_new'] = 'staff';
+        }
+        console.log(data);
+        // 提交请求
+        $.ajax({
+            type: 'put',
+            url: '/user',
+            data: data,
+            success: function(result){
+                if (result != 'false') {
+                    $('#modal_edit').modal('hide');
+                    window.location.href = '/user?page_current=' + result;
+                } else {
+                    alert('修改失败');
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
